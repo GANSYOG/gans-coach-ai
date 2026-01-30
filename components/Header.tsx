@@ -1,8 +1,9 @@
-
-import React from 'react';
+import React, { memo } from 'react';
 import { Mic } from 'lucide-react';
 
-export const Header: React.FC = () => {
+// ⚡ Bolt: Wrapped in React.memo to prevent unnecessary re-renders when parent state (volume/timer) changes.
+// This component is static and should not re-render on every frame.
+export const Header: React.FC = memo(() => {
   return (
     <div className="w-full bg-white border-b border-slate-200 p-6 flex items-center justify-between shadow-sm">
       <div className="flex items-center gap-3">
@@ -19,4 +20,6 @@ export const Header: React.FC = () => {
       </div>
     </div>
   );
-};
+});
+
+Header.displayName = 'Header';

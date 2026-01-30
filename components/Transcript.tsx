@@ -1,5 +1,4 @@
-
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, memo } from 'react';
 import { TranscriptItem } from '../types.ts';
 import { User, Sparkles, Info, Wind } from 'lucide-react';
 
@@ -7,7 +6,9 @@ interface TranscriptProps {
   items: TranscriptItem[];
 }
 
-export const Transcript: React.FC<TranscriptProps> = ({ items }) => {
+// ⚡ Bolt: Wrapped in React.memo to prevent unnecessary re-renders when parent state (volume/timer) changes.
+// The transcript list only needs to update when new items are added, not on every volume tick.
+export const Transcript: React.FC<TranscriptProps> = memo(({ items }) => {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -73,4 +74,6 @@ export const Transcript: React.FC<TranscriptProps> = ({ items }) => {
       <div ref={bottomRef} />
     </div>
   );
-};
+});
+
+Transcript.displayName = 'Transcript';

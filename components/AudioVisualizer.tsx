@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { memo } from 'react';
 import { BrainCircuit } from 'lucide-react';
 
 interface AudioVisualizerProps {
@@ -9,7 +8,8 @@ interface AudioVisualizerProps {
   isLearning: boolean;
 }
 
-export const AudioVisualizer: React.FC<AudioVisualizerProps> = ({ userVolume, modelVolume, isActive, isLearning }) => {
+// ⚡ Bolt: Wrapped in React.memo to prevent unnecessary re-renders when parent state (timer) changes but volume hasn't.
+export const AudioVisualizer: React.FC<AudioVisualizerProps> = memo(({ userVolume, modelVolume, isActive, isLearning }) => {
   const userScale = 1 + Math.min(userVolume * 2, 0.5); 
   const modelScale = 1 + Math.min(modelVolume * 3, 1.5); 
   
@@ -58,4 +58,6 @@ export const AudioVisualizer: React.FC<AudioVisualizerProps> = ({ userVolume, mo
       </div>
     </div>
   );
-};
+});
+
+AudioVisualizer.displayName = 'AudioVisualizer';
